@@ -1,0 +1,144 @@
+
+This is just for sanity check (safe code)
+
+@@<<
+
+@LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4168:2
+@FUNCTION: ubifs_mkdir(dir,dentry,mode)
+@RETURN: 1
+@CONDITION: (E # ubifs_jnl_update(dir->i_sb->s_fs_info, dir, &dentry->d_name, inode, 0, 0)) : { [-2147483648, -1], [1, 2147483647] }
+@CONDITION: (E # __builtin_expect(0, 0)) : { [0, 0] }
+@CONDITION: (E # __builtin_expect(0, 0)) : { [0, 0] }
+@CONDITION: (E # ubifs_budget_space(dir->i_sb->s_fs_info, &req)) : { [0, 0] }
+@CONDITION: (S64 # dir->i_sb->s_fs_info->highest_inum) : { [0, 4293918719] }
+@CONDITION: (S64 # new_inode(dir->i_sb->s_fs_info->vfs_sb)->i_sb->s_time_gran) : { [1000000000, 4294967295] }
+@CONDITION: (S64 # dir->i_mode) & (I # 61440) : { [-2147483648, 16383], [16385, 2147483647] }
+@CONDITION: (E # new_inode(dir->i_sb->s_fs_info->vfs_sb)) : { [18446744073709547521, 18446744073709551615] }
+@CONDITION: (E # security_inode_init_security(inode, dir, qstr, &init_xattrs, 0)) : { [0, 0] }
+@CONDITION: (S64 # (S64 # mode) | (I # 16384)) & (I # 61440) : { [-2147483648, 4095], [4097, 8191], [8193, 16383], [16385, 24575], [24577, 32767], [32769, 40959], [40961, 49151], [49153, 2147483647] }
+@LOG_CALL: ubifs_inode(dir) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4114:31
+@LOG_CALL: ubifs_budget_space(dir->i_sb->s_fs_info, &req) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4127:8
+@LOG_STORE: err = ubifs_budget_space(dir->i_sb->s_fs_info, &req) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4127:2
+@LOG_CALL: ubifs_new_inode(dir->i_sb->s_fs_info, dir, (S64 # mode) | (I # 16384)) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4131:10
+@LOG_STORE: inode = ubifs_new_inode(dir->i_sb->s_fs_info, dir, (S64 # mode) | (I # 16384)) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4131:2
+@LOG_CALL: IS_ERR(inode) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4132:6
+@LOG_CALL: ubifs_init_security(dir, inode, &dentry->d_name) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4137:8
+@LOG_STORE: err = 0 @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4137:2
+@LOG_CALL: mutex_lock(&dir->ui_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4141:2
+@LOG_CALL: insert_inode_hash(inode) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4142:2
+@LOG_CALL: inc_nlink(inode) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4143:2
+@LOG_CALL: inc_nlink(dir) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4144:2
+@LOG_STORE: dir->i_size += sz_change @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4145:2
+@LOG_STORE: dir->ui_size = dir->i_size @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4146:2
+@LOG_STORE: dir->i_ctime = new_inode(dir->i_sb->s_fs_info->vfs_sb)->i_ctime @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4147:17
+@LOG_STORE: dir->i_mtime = new_inode(dir->i_sb->s_fs_info->vfs_sb)->i_ctime @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4147:2
+@LOG_CALL: ubifs_jnl_update(dir->i_sb->s_fs_info, dir, &dentry->d_name, inode, 0, 0) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4148:8
+@LOG_STORE: err = ubifs_jnl_update(dir->i_sb->s_fs_info, dir, &dentry->d_name, inode, 0, 0) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4148:2
+@LOG_CALL: printk("\0013UBIFS error (pid %d): %s: cannot create directory, error %d\n", get_current()->pid, __func__, err) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4150:3 <Spelling=include/linux/printk.h:250:2>
+@LOG_STORE: dir->i_size -= sz_change @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4160:2
+@LOG_STORE: dir->ui_size = dir->i_size @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4161:2
+@LOG_CALL: drop_nlink(dir) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4162:2
+@LOG_CALL: mutex_unlock(&dir->ui_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4163:2
+@LOG_CALL: make_bad_inode(inode) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4164:2
+@LOG_CALL: iput(inode) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4165:2
+@LOG_CALL: ubifs_release_budget(dir->i_sb->s_fs_info, &req) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4167:2
+
+@@>>
+
+Bug: Unlock on (non-locked) lock
+
+@@<<
+
+@LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4168:2
+@FUNCTION: ubifs_mkdir(dir,dentry,mode)
+@RETURN: 1
+@CONDITION: (E # __builtin_expect(0, 0)) : { [0, 0] }
+@CONDITION: (E # __builtin_expect(0, 0)) : { [0, 0] }
+@CONDITION: (E # ubifs_budget_space(dir->i_sb->s_fs_info, &req)) : { [0, 0] }
+@CONDITION: (S64 # dir->i_sb->s_fs_info->highest_inum) : { [0, 4293918719] }
+@CONDITION: (S64 # new_inode(dir->i_sb->s_fs_info->vfs_sb)->i_sb->s_time_gran) : { [1000000000, 4294967295] }
+@CONDITION: (S64 # dir->i_mode) & (I # 61440) : { [-2147483648, 16383], [16385, 2147483647] }
+@CONDITION: (E # new_inode(dir->i_sb->s_fs_info->vfs_sb)) : { [1, 18446744073709547520] }
+@CONDITION: (E # security_inode_init_security(inode, dir, qstr, &init_xattrs, 0)) : { [-2147483648, -1], [1, 2147483647] }
+@CONDITION: (S64 # (S64 # mode) | (I # 16384)) & (I # 61440) : { [-2147483648, 4095], [4097, 8191], [8193, 16383], [16385, 24575], [24577, 32767], [32769, 40959], [40961, 49151], [49153, 2147483647] }
+@LOG_CALL: ubifs_inode(dir) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4114:31
+@LOG_CALL: ubifs_budget_space(dir->i_sb->s_fs_info, &req) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4127:8
+@LOG_STORE: err = ubifs_budget_space(dir->i_sb->s_fs_info, &req) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4127:2
+@LOG_CALL: ubifs_new_inode(dir->i_sb->s_fs_info, dir, (S64 # mode) | (I # 16384)) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4131:10
+@LOG_STORE: inode = ubifs_new_inode(dir->i_sb->s_fs_info, dir, (S64 # mode) | (I # 16384)) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4131:2
+@LOG_CALL: IS_ERR(inode) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4132:6
+@LOG_CALL: ubifs_init_security(dir, inode, &dentry->d_name) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4137:8
+@LOG_STORE: err = ubifs_init_security(dir, inode, &dentry->d_name) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4137:2
+@LOG_STORE: dir->i_size -= sz_change @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4160:2
+@LOG_STORE: dir->ui_size = dir->i_size @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4161:2
+@LOG_CALL: drop_nlink(dir) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4162:2
+@LOG_CALL: mutex_unlock(&dir->ui_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4163:2
+@LOG_CALL: make_bad_inode(inode) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4164:2
+@LOG_CALL: iput(inode) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4165:2
+@LOG_CALL: ubifs_release_budget(dir->i_sb->s_fs_info, &req) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:4167:2
+
+@@>>
+
+@@<<
+
+@LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:2690:2
+@FUNCTION: ubifs_bulk_read(page)
+@RETURN: 0
+@CONDITION: (S64 # page->mapping->host->bulk_read) : { [1, 4294967295] }
+@CONDITION: (S64 # page->mapping->host->i_sb->s_fs_info->bulk_read) : { [1, 4294967295] }
+@CONDITION: (E # mutex_trylock(&ui->ui_mutex)) : { [-2147483648, -1], [1, 2147483647] }
+@LOG_CALL: ubifs_inode(inode) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:2631:27
+@LOG_STORE: ui->last_page_read = index @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:2636:2
+@LOG_CALL: mutex_trylock(&ui->ui_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:2644:7
+@LOG_STORE: ui->read_in_a_row = 1 @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:2649:3
+@LOG_STORE: ui->bulk_read = 0 @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:2651:4
+@LOG_CALL: mutex_unlock(&ui->ui_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:2689:2
+
+@@>>
+
+mutex_trylock() fails
+
+@@<<
+
+@LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:248:5
+@FUNCTION: kick_a_thread()
+@RETURN: -1
+@CONDITION: (S64 # ((ubifs_infos->next + (-3048 * 1))->infos_list->next + (-3048 * 1))->dirty_zn_cnt->counter) : { [-9223372036854775808, -1], [1, 922337203685
+4775807] }
+@CONDITION: (S64 # (ubifs_infos->next + (-3048 * 1))->dirty_zn_cnt->counter) : { [-9223372036854775808, -1], [1, 9223372036854775807] }
+@CONDITION: (S64 # ((ubifs_infos->next + (-3048 * 1))->infos_list->next + (-3048 * 1))->cmt_state) : { [-2147483648, 4], [6, 2147483647] }
+@CONDITION: (E # mutex_trylock(&c->umount_mutex)) : { [-2147483648, -1], [1, 2147483647] }
+@CONDITION: (S64 # (ubifs_infos->next + (-3048 * 1))->ro_error) : { [1, 4294967295] }
+@CONDITION: (E # mutex_trylock(&c->umount_mutex)) : { [-2147483648, -1], [1, 2147483647] }
+@CONDITION: (S64 # ((ubifs_infos->next + (-3048 * 1))->infos_list->next + (-3048 * 1))->ro_mount) : { [0, 0] }
+@CONDITION: (S64 # ((ubifs_infos->next + (-3048 * 1))->infos_list->next + (-3048 * 1))->ro_error) : { [1, 4294967295] }
+@CONDITION: (S64 # (ubifs_infos->next + (-3048 * 1))->cmt_state) : { [-2147483648, 4], [6, 2147483647] }
+@CONDITION: (S64 # (ubifs_infos->next + (-3048 * 1))->ro_mount) : { [0, 0] }
+@CONDITION: (E # mutex_trylock(&c->umount_mutex)) : { [0, 0] }
+@LOG_CALL: spin_lock(&ubifs_infos_lock) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:237:2
+@LOG_STORE: i = 0 @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:238:7
+@LOG_STORE: c = ({
+    const typeof (((typeof (*c) *)0)->infos_list) *__mptr = ((&ubifs_infos)->next);
+    ((typeof (*c) *)(ubifs_infos->next - 3048));
+}) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:239:3 <Spelling=/home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:239:23>
+@LOG_STORE: i++ @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:238:21
+@LOG_CALL: mutex_trylock(&c->umount_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:242:9
+@LOG_CALL: atomic_long_read(&c->dirty_zn_cnt) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:251:19
+@LOG_STORE: dirty_zn_cnt = (ubifs_infos->next + (-3048 * 1))->dirty_zn_cnt->counter @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:251:4
+@LOG_CALL: mutex_unlock(&c->umount_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:255:5
+@LOG_STORE: c = ({
+    const typeof (((typeof (*(c)) *)0)->infos_list) *__mptr = ((c)->infos_list.next);
+    ((typeof (*(c)) *)((ubifs_infos->next + (-3048 * 1))->infos_list->next - 3048));
+}) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:239:3 <Spelling=/home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:239:23>
+@LOG_CALL: mutex_trylock(&c->umount_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:242:9
+@LOG_CALL: (ubifs_infos->next + (-3048 * 1))->dirty_zn_cnt->counter @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:251:19
+@LOG_STORE: (ubifs_infos->next + (-3048 * 1))->dirty_zn_cnt->counter @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:251:4
+@LOG_CALL: mutex_unlock(&c->umount_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:255:5
+@LOG_STORE: c = ({
+    const typeof (((typeof (*(c)) *)0)->infos_list) *__mptr = ((c)->infos_list.next);
+    ((typeof (*(c)) *)(((ubifs_infos->next + (-3048 * 1))->infos_list->next + (-3048 * 1))->infos_list->next - 3048));
+}) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:239:3 <Spelling=/home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:239:23>
+@LOG_CALL: mutex_trylock(&c->umount_mutex) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:242:9
+@LOG_CALL: spin_unlock(&ubifs_infos_lock) @LOCATION: /home/taesoo/hive/fs-semantics/analyzer/out/ubifs/one.c:247:5
+
+@@>>

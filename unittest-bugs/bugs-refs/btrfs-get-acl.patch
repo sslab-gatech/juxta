@@ -1,0 +1,57 @@
+commit d0f69686c2ae775529aadc7a8acc6f13ad41de66
+Author: Miao Xie <miaox@cn.fujitsu.com>
+Date:   Tue Jan 25 15:46:17 2011 +0800
+
+    Btrfs: Don't return acl info when mounting with noacl option
+    
+    Steps to reproduce:
+    
+      # mkfs.btrfs /dev/sda2
+      # mount /dev/sda2 /mnt
+      # touch /mnt/file0
+      # setfacl -m 'u:root:x,g::x,o::x' /mnt/file0
+      # umount /mnt
+      # mount /dev/sda2 -o noacl /mnt
+      # getfacl /mnt/file0
+      ...
+      user::rw-
+      user:root:--x
+      group::--x
+      mask::--x
+      other::--x
+    
+    The output should be:
+    
+      user::rw-
+      group::--x
+      other::--x
+    
+    Signed-off-by: Miao Xie <miaox@cn.fujitsu.com>
+    Signed-off-by: Li Zefan <lizf@cn.fujitsu.com>
+
+diff --git a/fs/btrfs/acl.c b/fs/btrfs/acl.c
+index 2222d16..3c52fc8 100644
+--- a/fs/btrfs/acl.c
++++ b/fs/btrfs/acl.c
+@@ -37,6 +37,9 @@ static struct posix_acl *btrfs_get_acl(struct inode *inode, int type)
+ 	char *value = NULL;
+ 	struct posix_acl *acl;
+ 
++	if (!IS_POSIXACL(inode))
++		return NULL;
++
+ 	acl = get_cached_acl(inode, type);
+ 	if (acl != ACL_NOT_CACHED)
+ 		return acl;
+@@ -82,6 +85,9 @@ static int btrfs_xattr_acl_get(struct dentry *dentry, const char *name,
+ 	struct posix_acl *acl;
+ 	int ret = 0;
+ 
++	if (!IS_POSIXACL(dentry->d_inode))
++		return -EOPNOTSUPP;
++
+ 	acl = btrfs_get_acl(dentry->d_inode, type);
+ 
+ 	if (IS_ERR(acl))
+
+

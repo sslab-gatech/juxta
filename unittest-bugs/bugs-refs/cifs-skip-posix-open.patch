@@ -1,0 +1,29 @@
+While creating a file on a server which supports unix extensions
+such as Samba, if a file is being created which does not supply
+nameidata (i.e. nd is null), cifs client can oops when calling
+cifs_posix_open.
+
+The simplest solution is, do not open a file using posix semantics
+if nameidata parameter is NULL even if server supports posix semantics.
+
+I do not see a way to reach vfsmount (structure) field if nameidata
+is not supplied to call posix open (cifs_posix_open).
+
+
+Signed-off-by: Shirish Pargaonkar <shirishpargaonkar at gmail.com>
+Reported-by: Eugene Teo <eugeneteo at kernel.sg>
+---
+
+diff --git a/fs/cifs/dir.c b/fs/cifs/dir.c
+index e9f7ecc..eef8d83 100644
+--- a/fs/cifs/dir.c
++++ b/fs/cifs/dir.c
+@@ -317,7 +317,7 @@ cifs_create(struct inode *inode, struct dentry *direntry, int mode,
+ 	else
+ 		oflags = FMODE_READ;
+ 
+-	if (tcon->unix_ext && (tcon->ses->capabilities & CAP_UNIX) &&
++	if (nd && tcon->unix_ext && (tcon->ses->capabilities & CAP_UNIX) &&
+ 	    (CIFS_UNIX_POSIX_PATH_OPS_CAP &
+ 			le64_to_cpu(tcon->fsUnixInfo.Capability))) {
+ 		rc = cifs_posix_open(full_path, &newinode, nd->path.mnt,

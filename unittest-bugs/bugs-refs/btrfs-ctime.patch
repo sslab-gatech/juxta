@@ -1,0 +1,26 @@
+commit bc1cbf1f86aa2501efa9ca637c736fce6bcc4b1d
+Author: Josef Bacik <josef@redhat.com>
+Date:   Tue Nov 23 19:50:59 2010 +0000
+
+    Btrfs: update inode ctime when using links
+    
+    Currently we fail xfstest 236 because we're not updating the inode ctime on
+    link.  This is a simple fix, and makes it so we pass 236 now.
+    
+    Signed-off-by: Josef Bacik <josef@redhat.com>
+    Signed-off-by: Chris Mason <chris.mason@oracle.com>
+
+diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
+index 0eeacd9..6df921f 100644
+--- a/fs/btrfs/inode.c
++++ b/fs/btrfs/inode.c
+@@ -4785,6 +4785,7 @@ static int btrfs_link(struct dentry *old_dentry, struct inode *dir,
+ 		return -EPERM;
+ 
+ 	btrfs_inc_nlink(inode);
++	inode->i_ctime = CURRENT_TIME;
+ 
+ 	err = btrfs_set_inode_index(dir, &index);
+ 	if (err)
+
+

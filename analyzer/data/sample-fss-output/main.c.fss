@@ -1,0 +1,16 @@
+@@<<
+
+@LOCATION: main.c:3:3
+@FUNCTION: main()
+@RETURN: 0
+@CONDITION: nil
+
+@@>>
+@@<<
+
+@LOCATION: main.c:3:3
+@FUNCTION: main()
+@RETURN: 0
+@CONDITION: nil
+
+@@>>

@@ -1,0 +1,16 @@
+# Before running checker 
+1. Merege all files of a file system into single file
+   ctrl.py merge_all
+
+2. Analysis all file systems 
+   ctrl.py clang_all
+
+3. Parse and pickle all analysis results
+   ctrl.py pickle_all ./out
+
+
+# Return code checker 
+  ckrtn.py
+
+# See sorted results of checker output 
+  catcklog.sh [checker output dir]

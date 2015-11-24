@@ -1,0 +1,55 @@
+If you do something like:
+
+# touch foo
+# tail -f foo &
+# rm foo
+# <take snapshot>
+# <mount snapshot>
+
+you'll panic, because ext3/4 tries to do orphan list processing on the 
+readonly snapshot device, and:
+
+kernel: journal commit I/O error
+kernel: Assertion failure in journal_flush_Rsmp_e2f189ce() at journal.c:1356: "!journal->j_checkpoint_transactions"
+kernel: Kernel panic: Fatal exception
+
+for a truly readonly underlying device, it's reasonable and necessary 
+to just skip orphan list processing.
+
+Signed-off-by: Eric Sandeen <sandeen@redhat.com>
+
+Index: linux-2.6.18/fs/ext3/super.c
+===================================================================
+--- linux-2.6.18.orig/fs/ext3/super.c
++++ linux-2.6.18/fs/ext3/super.c
+@@ -1264,6 +1264,12 @@ static void ext3_orphan_cleanup (struct 
+ 		return;
+ 	}
+ 
++	if (bdev_read_only(sb->s_bdev)) {
++		printk(KERN_ERR "EXT3-fs: write access "
++			"unavailable, skipping orphan cleanup.\n");
++		return;
++	}
++
+ 	if (EXT3_SB(sb)->s_mount_state & EXT3_ERROR_FS) {
+ 		if (es->s_last_orphan)
+ 			jbd_debug(1, "Errors on filesystem, "
+Index: linux-2.6.18/fs/ext4/super.c
+===================================================================
+--- linux-2.6.18.orig/fs/ext4/super.c
++++ linux-2.6.18/fs/ext4/super.c
+@@ -1321,6 +1321,12 @@ static void ext4_orphan_cleanup (struct 
+ 		return;
+ 	}
+ 
++	if (bdev_read_only(sb->s_bdev)) {
++		printk(KERN_ERR "EXT4-fs: write access "
++			"unavailable, skipping orphan cleanup.\n");
++		return;
++	}
++
+ 	if (EXT4_SB(sb)->s_mount_state & EXT4_ERROR_FS) {
+ 		if (es->s_last_orphan)
+ 			jbd_debug(1, "Errors on filesystem, "
+

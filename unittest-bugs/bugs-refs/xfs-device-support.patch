@@ -1,0 +1,35 @@
+commit 5d15765594eeb5d82c5630b3428ea0ac4f7d3c31
+Author: Lukas Czerner <lczerner@redhat.com>
+Date:   Tue Feb 15 17:07:36 2011 +0000
+
+    xfs: check if device support discard in xfs_ioc_trim()
+    
+    Right now we, are relying on the fact that when we attempt to
+    actually do the discard, blkdev_issue_discar() returns -EOPNOTSUPP
+    and the user is informed that the device does not support discard.
+    
+    However, in the case where the we do not hit any suitable free
+    extent to trim in FITRIM code, it will finish without any error.
+    This is very confusing, because it seems that FITRIM was successful
+    even though the device does not actually supports discard.
+    
+    Solution: Check for the discard support before attempt to search for
+    free extents.
+    
+    Signed-off-by: Lukas Czerner <lczerner@redhat.com>
+    Signed-off-by: Alex Elder <aelder@sgi.com>
+
+diff --git a/fs/xfs/linux-2.6/xfs_discard.c b/fs/xfs/linux-2.6/xfs_discard.c
+index 05201ae..d61611c 100644
+--- a/fs/xfs/linux-2.6/xfs_discard.c
++++ b/fs/xfs/linux-2.6/xfs_discard.c
+@@ -152,6 +152,8 @@ xfs_ioc_trim(
+ 
+ 	if (!capable(CAP_SYS_ADMIN))
+ 		return -XFS_ERROR(EPERM);
++	if (!blk_queue_discard(q))
++		return -XFS_ERROR(EOPNOTSUPP);
+ 	if (copy_from_user(&range, urange, sizeof(range)))
+ 		return -XFS_ERROR(EFAULT);
+ 
+

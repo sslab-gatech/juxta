@@ -1,0 +1,33 @@
+commit d5a0d4f732af3438e592efab4cb80076d1dd81b5
+Author: Eric Sandeen <sandeen@redhat.com>
+Date:   Sat Aug 2 18:51:06 2008 -0400
+
+    ext4: fix ext4_da_write_begin error path
+    
+    ext4_da_write_begin needs to call journal_stop before returning,
+    if the page allocation fails.
+    
+    Signed-off-by: Eric Sandeen <sandeen@redhat.com>
+    Acked-by: Mingming Cao <cmm@us.ibm.com>
+    Signed-off-by: "Theodore Ts'o" <tytso@mit.edu>
+
+diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
+index efe8caa..37f834b 100644
+--- a/fs/ext4/inode.c
++++ b/fs/ext4/inode.c
+@@ -2280,8 +2280,11 @@ retry:
+ 	}
+ 
+ 	page = __grab_cache_page(mapping, index);
+-	if (!page)
+-		return -ENOMEM;
++	if (!page) {
++		ext4_journal_stop(handle);
++		ret = -ENOMEM;
++		goto out;
++	}
+ 	*pagep = page;
+ 
+ 	ret = block_write_begin(file, mapping, pos, len, flags, pagep, fsdata,
+
+

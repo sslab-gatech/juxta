@@ -1,0 +1,260 @@
+@@<<
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: 0
+@CONDITION: (S64 # new_dentry->d_inode) : { [0, 0] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [0, 0] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [0, 0] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+@LOG_STORE: old_dentry->d_inode->i_ctime = { 0x3691c30 } @LOCATION: ext3.c:48:2
+@LOG_CALL: ext3_mark_inode_dirty(handle, old_dentry->d_inode) @LOCATION: ext3.c:49:2
+@LOG_STORE: old_dir->i_mtime = { 0x36924c0 } @LOCATION: ext3.c:58:21
+@LOG_STORE: old_dir->i_ctime = { 0x36924c0 } @LOCATION: ext3.c:58:2
+@LOG_CALL: ext3_update_dx_flag(old_dir) @LOCATION: ext3.c:59:2
+@LOG_STORE: retval = 0 @LOCATION: ext3.c:60:2
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: 0
+@CONDITION: (S64 # new_dentry->d_inode) : { [1, 18446744073709551615] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [0, 0] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [0, 0] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+@LOG_STORE: old_dentry->d_inode->i_ctime = { 0x3691c30 } @LOCATION: ext3.c:48:2
+@LOG_CALL: ext3_mark_inode_dirty(handle, old_dentry->d_inode) @LOCATION: ext3.c:49:2
+@LOG_CALL: drop_nlink(new_dentry->d_inode) @LOCATION: ext3.c:55:3
+@LOG_STORE: new_dentry->d_inode->i_ctime = { 0x36921d0 } @LOCATION: ext3.c:56:3
+@LOG_STORE: old_dir->i_mtime = { 0x36924c0 } @LOCATION: ext3.c:58:21
+@LOG_STORE: old_dir->i_ctime = { 0x36924c0 } @LOCATION: ext3.c:58:2
+@LOG_CALL: ext3_update_dx_flag(old_dir) @LOCATION: ext3.c:59:2
+@LOG_STORE: retval = 0 @LOCATION: ext3.c:60:2
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: 0
+@CONDITION: (S64 # new_dentry->d_inode) : { [1, 18446744073709551615] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [1, 18446744073709551615] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_STORE: old_dentry->d_inode->i_ctime = { 0x3691c30 } @LOCATION: ext3.c:48:2
+@LOG_CALL: ext3_mark_inode_dirty(handle, old_dentry->d_inode) @LOCATION: ext3.c:49:2
+@LOG_CALL: drop_nlink(new_dentry->d_inode) @LOCATION: ext3.c:55:3
+@LOG_STORE: new_dentry->d_inode->i_ctime = { 0x36921d0 } @LOCATION: ext3.c:56:3
+@LOG_STORE: old_dir->i_mtime = { 0x36924c0 } @LOCATION: ext3.c:58:21
+@LOG_STORE: old_dir->i_ctime = { 0x36924c0 } @LOCATION: ext3.c:58:2
+@LOG_CALL: ext3_update_dx_flag(old_dir) @LOCATION: ext3.c:59:2
+@LOG_STORE: retval = 0 @LOCATION: ext3.c:60:2
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: 0
+@CONDITION: (S64 # new_dentry->d_inode) : { [0, 0] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [1, 18446744073709551615] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [0, 0] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: brelse(new_bh) @LOCATION: ext3.c:32:4
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:33:4
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+@LOG_STORE: old_dentry->d_inode->i_ctime = { 0x3691c30 } @LOCATION: ext3.c:48:2
+@LOG_CALL: ext3_mark_inode_dirty(handle, old_dentry->d_inode) @LOCATION: ext3.c:49:2
+@LOG_STORE: old_dir->i_mtime = { 0x36924c0 } @LOCATION: ext3.c:58:21
+@LOG_STORE: old_dir->i_ctime = { 0x36924c0 } @LOCATION: ext3.c:58:2
+@LOG_CALL: ext3_update_dx_flag(old_dir) @LOCATION: ext3.c:59:2
+@LOG_STORE: retval = 0 @LOCATION: ext3.c:60:2
+
+@@>>
+@@<<
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: ext3_add_entry(handle, new_dentry, old_inode)
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [0, 0] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [-2147483648, -1], [1, 2147483647] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: ext3_add_entry(handle, new_dentry, old_inode)
+@CONDITION: (S64 # new_dentry->d_inode) : { [0, 0] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [1, 18446744073709551615] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [-2147483648, -1], [1, 2147483647] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: brelse(new_bh) @LOCATION: ext3.c:32:4
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:33:4
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+
+@@>>
+@@<<
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: 0
+@CONDITION: (S64 # new_dentry->d_inode) : { [0, 0] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [0, 0] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [0, 0] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+@LOG_STORE: old_dentry->d_inode->i_ctime = { 0x3691c30 } @LOCATION: ext3.c:48:2
+@LOG_CALL: ext3_mark_inode_dirty(handle, old_dentry->d_inode) @LOCATION: ext3.c:49:2
+@LOG_STORE: old_dir->i_mtime = { 0x36924c0 } @LOCATION: ext3.c:58:21
+@LOG_STORE: old_dir->i_ctime = { 0x36924c0 } @LOCATION: ext3.c:58:2
+@LOG_CALL: ext3_update_dx_flag(old_dir) @LOCATION: ext3.c:59:2
+@LOG_STORE: retval = 0 @LOCATION: ext3.c:60:2
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: 0
+@CONDITION: (S64 # new_dentry->d_inode) : { [1, 18446744073709551615] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [0, 0] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [0, 0] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+@LOG_STORE: old_dentry->d_inode->i_ctime = { 0x3691c30 } @LOCATION: ext3.c:48:2
+@LOG_CALL: ext3_mark_inode_dirty(handle, old_dentry->d_inode) @LOCATION: ext3.c:49:2
+@LOG_CALL: drop_nlink(new_dentry->d_inode) @LOCATION: ext3.c:55:3
+@LOG_STORE: new_dentry->d_inode->i_ctime = { 0x36921d0 } @LOCATION: ext3.c:56:3
+@LOG_STORE: old_dir->i_mtime = { 0x36924c0 } @LOCATION: ext3.c:58:21
+@LOG_STORE: old_dir->i_ctime = { 0x36924c0 } @LOCATION: ext3.c:58:2
+@LOG_CALL: ext3_update_dx_flag(old_dir) @LOCATION: ext3.c:59:2
+@LOG_STORE: retval = 0 @LOCATION: ext3.c:60:2
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: 0
+@CONDITION: (S64 # new_dentry->d_inode) : { [1, 18446744073709551615] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [1, 18446744073709551615] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_STORE: old_dentry->d_inode->i_ctime = { 0x3691c30 } @LOCATION: ext3.c:48:2
+@LOG_CALL: ext3_mark_inode_dirty(handle, old_dentry->d_inode) @LOCATION: ext3.c:49:2
+@LOG_CALL: drop_nlink(new_dentry->d_inode) @LOCATION: ext3.c:55:3
+@LOG_STORE: new_dentry->d_inode->i_ctime = { 0x36921d0 } @LOCATION: ext3.c:56:3
+@LOG_STORE: old_dir->i_mtime = { 0x36924c0 } @LOCATION: ext3.c:58:21
+@LOG_STORE: old_dir->i_ctime = { 0x36924c0 } @LOCATION: ext3.c:58:2
+@LOG_CALL: ext3_update_dx_flag(old_dir) @LOCATION: ext3.c:59:2
+@LOG_STORE: retval = 0 @LOCATION: ext3.c:60:2
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: 0
+@CONDITION: (S64 # new_dentry->d_inode) : { [0, 0] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [1, 18446744073709551615] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [0, 0] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: brelse(new_bh) @LOCATION: ext3.c:32:4
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:33:4
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+@LOG_STORE: old_dentry->d_inode->i_ctime = { 0x3691c30 } @LOCATION: ext3.c:48:2
+@LOG_CALL: ext3_mark_inode_dirty(handle, old_dentry->d_inode) @LOCATION: ext3.c:49:2
+@LOG_STORE: old_dir->i_mtime = { 0x36924c0 } @LOCATION: ext3.c:58:21
+@LOG_STORE: old_dir->i_ctime = { 0x36924c0 } @LOCATION: ext3.c:58:2
+@LOG_CALL: ext3_update_dx_flag(old_dir) @LOCATION: ext3.c:59:2
+@LOG_STORE: retval = 0 @LOCATION: ext3.c:60:2
+
+@@>>
+@@<<
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: ext3_add_entry(handle, new_dentry, old_inode)
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [0, 0] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [-2147483648, -1], [1, 2147483647] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+
+@LOCATION: ext3.c:63:2
+@FUNCTION: ext3_rename(struct inode * old_dir, struct dentry * old_dentry, struct inode * new_dir, struct dentry * new_dentry)
+@RETURN: ext3_add_entry(handle, new_dentry, old_inode)
+@CONDITION: (S64 # new_dentry->d_inode) : { [0, 0] }
+@CONDITION: (E # ext3_find_entry(new_dir, &new_dentry->d_name, &new_de)) : { [1, 18446744073709551615] }
+@CONDITION: (E # ext3_add_entry(handle, new_dentry, old_inode)) : { [-2147483648, -1], [1, 2147483647] }
+@LOG_STORE: dir_bh = 0 @LOCATION: ext3.c:24:11
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:24:2
+@LOG_STORE: old_inode = old_dentry->d_inode @LOCATION: ext3.c:26:2
+@LOG_STORE: retval = -2 @LOCATION: ext3.c:27:2
+@LOG_STORE: new_inode = new_dentry->d_inode @LOCATION: ext3.c:28:2
+@LOG_CALL: ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:11
+@LOG_STORE: new_bh = ext3_find_entry(new_dir, &new_dentry->d_name, &new_de) @LOCATION: ext3.c:29:2
+@LOG_CALL: brelse(new_bh) @LOCATION: ext3.c:32:4
+@LOG_STORE: new_bh = 0 @LOCATION: ext3.c:33:4
+@LOG_CALL: ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:12
+@LOG_STORE: retval = ext3_add_entry(handle, new_dentry, old_dentry->d_inode) @LOCATION: ext3.c:37:3
+
+@@>>

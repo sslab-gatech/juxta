@@ -1,0 +1,4 @@
+*.pyc
+_tmp_z3.py
+out/
+*.p

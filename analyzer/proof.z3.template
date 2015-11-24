@@ -1,0 +1,13 @@
+
+# Proof by contradiction.
+
+def proof():
+    s = Solver()
+    s.add(Not(__z3_eq))
+    if s.check() == unsat:
+        return True # equal
+    else:
+        return False # not equal
+
+if __name__ == "__main__":
+    proof()

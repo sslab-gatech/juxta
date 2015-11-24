@@ -1,0 +1,35 @@
+commit 988a6490a793b73ff23aa3baf87b337152178e4d
+Author: Dave Kleikamp <shaggy@austin.ibm.com>
+Date:   Mon Oct 31 16:53:04 2005 -0600
+
+    JFS: set i_ctime & i_mtime on target directory when creating links
+    
+    jfs has never been setting i_ctime or i_mtime when creating either hard
+    or symbolic links.  I'm surprised nobody had noticed until now.
+    
+    Thanks to Chris Spiegel for reporting the problem.
+    
+    Signed-off-by: Dave Kleikamp <shaggy@austin.ibm.com>
+
+diff --git a/fs/jfs/namei.c b/fs/jfs/namei.c
+index 1abe734..4abbe86 100644
+--- a/fs/jfs/namei.c
++++ b/fs/jfs/namei.c
+@@ -827,6 +827,7 @@ static int jfs_link(struct dentry *old_dentry,
+ 	/* update object inode */
+ 	ip->i_nlink++;		/* for new link */
+ 	ip->i_ctime = CURRENT_TIME;
++	dir->i_ctime = dir->i_mtime = CURRENT_TIME;
+ 	mark_inode_dirty(dir);
+ 	atomic_inc(&ip->i_count);
+ 
+@@ -1024,6 +1025,8 @@ static int jfs_symlink(struct inode *dip, struct dentry *dentry,
+ 	insert_inode_hash(ip);
+ 	mark_inode_dirty(ip);
+ 
++	dip->i_ctime = dip->i_mtime = CURRENT_TIME;
++	mark_inode_dirty(dip);
+ 	/*
+ 	 * commit update of parent directory and link object
+ 	 */
+
