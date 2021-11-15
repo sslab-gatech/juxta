@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+# SPDX-License-Identifier: MIT
 
 class Color:
     HEADER = '\033[95m'

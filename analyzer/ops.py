@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+# SPDX-License-Identifier: MIT
 import os
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))

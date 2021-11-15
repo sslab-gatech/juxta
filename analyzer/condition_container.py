@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+# SPDX-License-Identifier: MIT
 
 class ConditionContainer(object):
     def __init__(self, isCNF=True, conditions = None):

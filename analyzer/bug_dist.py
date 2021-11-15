@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+# SPDX-License-Identifier: MIT
 from __future__ import print_function
 
 import os

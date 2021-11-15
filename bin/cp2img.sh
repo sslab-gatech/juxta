@@ -1,4 +1,5 @@
 #!/bin/bash -e
+# SPDX-License-Identifier: MIT
 
 if [[ $# != 3 ]]; then
   echo "usage: $0 [src] [dst] [img]"

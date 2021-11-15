@@ -1,4 +1,5 @@
 #!/bin/sh -x
+# SPDX-License-Identifier: MIT
 
 DISK=${DISK:-fs.img}
 SIZE=${SIZE:-1G}

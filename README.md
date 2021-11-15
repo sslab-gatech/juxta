@@ -1,8 +1,10 @@
-Juxta: Cross-checking Semantic Correctness for File Systems
-===========================================================
+# Juxta: Cross-checking Semantic Correctness for File Systems
 
-Environments
-------------
+Juxta, a tool that automatically infers high-level semantics directly from source code. The key idea in Juxta is to compare and contrast multiple existing implementations that obey latent yet implicit high-level semantics. We applied Juxta to 54 file systems in the stock Linux kernel (680K LoC), found 118 previously unknown semantic bugs (one bug per 5.8K LoC), and provided corresponding patches to 39 different file systems, including mature, popular ones like ext4, btrfs, XFS, and NFS.
+
+This repository is under the terms of MIT license. For execution, llvm was slightly modified in llvm directory. 
+
+## Environments
 - Tested: Ubuntu 14.04
 - Requisite
 ~~~~~~{.sh}
@@ -16,16 +18,14 @@ $ make; make clean
 $ cd ../juxta
 ~~~~~~
 
-
-- How to build
+## How to build
 ~~~~~{.sh}
 Build clang
 $  make clang-full  (first time only)
 $  make clang       (from the next)
 ~~~~~
 
-
-- How to create path databases
+## How to create path databases
 ~~~~~{.sh}
 Merge file system code
 $ cd analyzer
@@ -41,9 +41,7 @@ $ ./ctrl.py pickle_all (for all file systems)
 $ cd ..
 ~~~~~
 
-
-Juxta checkers
---------------
+## Juxta checkers
 - Return code checker:    analyzer/ckrtn.py
 - Side-effect checker:    analyzer/ckstore.py
 - Function call checker:  analyzer/ckcall.py
@@ -53,24 +51,16 @@ Juxta checkers
 - Lock checker:           analyzer/lock.py
 - Spec. generator:        analyzer/spec.py
 
-
-Authors
--------
+## Authors
 - Changwoo Min <changwoo@gatech.edu>
 - Sanidhya Kashyap <sanidhya@gatech.edu>
 - Byoungyoung Lee <blee@gatech.edu>
 - Chengyu Song <csong84@gatech.edu>
 - Taesoo Kim <taesoo@gatech.edu>
 
-
-Publications
-------------
-- Paper on Juxta
+## Publications
+https://dl.acm.org/doi/abs/10.1145/2815400.2815422
 ```
-Cross-checking Semantic Correctness: The Case of Finding File System Bugs
-Changwoo Min, Sanidhya Kashyap, Byoungyoung Lee, Chengyu Song, and Taesoo Kim
-SOSP 2015
-
 @inproceedings{min:juxta,
   title        = {{Cross-checking Semantic Correctness: The Case of Finding File System Bugs}},
   author       = {Changwoo Min and Sanidhya Kashyap and Byoungyoung Lee and Chengyu Song and Taesoo Kim},

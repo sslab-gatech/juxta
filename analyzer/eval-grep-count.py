@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 import os
 import subprocess
 import multiprocessing as mp

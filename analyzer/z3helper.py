@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+# SPDX-License-Identifier: MIT
 import os,sys
 from condition_container import ConditionContainer
 

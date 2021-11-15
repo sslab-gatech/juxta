@@ -1,4 +1,5 @@
 #!/bin/bash -eu
+# SPDX-License-Identifier: MIT
 
 LINUX=${1:-../linux-3.17}
 

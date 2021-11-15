@@ -1,4 +1,5 @@
 #!/bin/sh
+# SPDX-License-Identifier: MIT
 
 DISK=${DISK:-"fs.img"}
 KERN=${KERN:-"$HOME/refs/linux-git/arch/x86_64/boot/bzImage"}

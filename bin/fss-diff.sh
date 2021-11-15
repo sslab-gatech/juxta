@@ -1,4 +1,5 @@
 #!/bin/bash
+# SPDX-License-Identifier: MIT
 
 OUT=$(dirname "$0")/../linux-3.17/fss-out
 

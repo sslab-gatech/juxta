@@ -1,4 +1,5 @@
 #!/usr/bin/env python2
+# SPDX-License-Identifier: MIT
 from parse import Parse
 from return_cond import ReturnCond
 from return_cond_container import ReturnCondContainer

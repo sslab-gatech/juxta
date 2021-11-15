@@ -1,4 +1,5 @@
 #!/bin/bash
+# SPDX-License-Identifier: MIT
 
 cd $(dirname $0)/../linux-3.17/fs
 loc $(cat ../../analyzer/NOTE.fs | grep -v \# | grep C | cut -d' ' -f2)

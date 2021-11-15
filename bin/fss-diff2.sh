@@ -1,4 +1,5 @@
 #!/bin/bash
+# SPDX-License-Identifier: MIT
 DIFF_TOOL=kdiff3
 DIFF_DIR=$1
 
